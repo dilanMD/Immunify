@@ -1,0 +1,24 @@
+import {USER} from '../constants/user';
+
+const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
+
+const INITIAL_STATE = {
+  loading: false,
+  fcm: '',
+  error: '',
+};
+
+const userReducer = (state = INITIAL_STATE, {type, payload}) => {
+  switch (type) {
+    case GET_FCM_REQUEST:
+      return {...state, loading: true};
+    case GET_FCM_SUCCESS:
+      return {...state, loading: false, fcm: payload};
+    case GET_FCM_FAILURE:
+      return {...state, loading: false, error: payload};
+    default:
+      return state;
+  }
+};
+
+export default userReducer;

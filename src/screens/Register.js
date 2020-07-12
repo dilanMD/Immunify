@@ -20,7 +20,7 @@ const Register = ({navigation}) => {
   const {primary, secondary} = COLORS;
   const {REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE} = AUTH;
   const [fcmToken, setFcmToken] = useState('');
-  const auth = useSelector((state) => state);
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const {msisdn, loading} = auth;
 
