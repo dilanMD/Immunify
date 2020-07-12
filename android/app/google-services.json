@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "418473487508",
+    "firebase_url": "https://immunify-d10bf.firebaseio.com",
+    "project_id": "immunify-d10bf",
+    "storage_bucket": "immunify-d10bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418473487508:android:2d3b63ff599c4749ec1881",
+        "android_client_info": {
+          "package_name": "com.immunify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418473487508-7p6vic6o5mpugg03nrmuv11gnk4t57ed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiGxV7NHFfWFAfo9LU907_V8l3djjw5iU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418473487508-7p6vic6o5mpugg03nrmuv11gnk4t57ed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
