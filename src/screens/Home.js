@@ -20,7 +20,7 @@ const Home = () => {
         options={{
           tabBarLabel: 'Dialpad',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="dialpad" color={color} size={26} />
+            <MaterialCommunityIcons name="dialpad" color={color} size={20} />
           ),
         }}
       />
@@ -33,7 +33,7 @@ const Home = () => {
             <MaterialCommunityIcons
               name="format-list-text"
               color={color}
-              size={26}
+              size={20}
             />
           ),
         }}

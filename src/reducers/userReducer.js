@@ -4,8 +4,8 @@ const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
 
 const INITIAL_STATE = {
   loading: false,
-  fcm: '',
-  error: '',
+  userData: null,
+  error: null,
 };
 
 const userReducer = (state = INITIAL_STATE, {type, payload}) => {
@@ -13,7 +13,7 @@ const userReducer = (state = INITIAL_STATE, {type, payload}) => {
     case GET_FCM_REQUEST:
       return {...state, loading: true};
     case GET_FCM_SUCCESS:
-      return {...state, loading: false, fcm: payload};
+      return {...state, loading: false, user: payload};
     case GET_FCM_FAILURE:
       return {...state, loading: false, error: payload};
     default:

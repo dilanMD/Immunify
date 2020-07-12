@@ -1,18 +1,78 @@
 import React, {useState} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  Alert,
+  ActivityIndicator,
+  StyleSheet,
+} from 'react-native';
 import {Input} from 'react-native-elements';
 import {useSelector, useDispatch} from 'react-redux';
+import axios from 'axios';
+
+import {USER} from '../constants/user';
+import {COLORS} from '../constants/color';
+import {BASE_URL, FIREBASE_SERVER_KEY} from '../constants/credentials';
 
 const Dialpad = () => {
-  const [opponent, setOpponent] = useState('');
+  const [opponent, setOpponent] = useState('0767795737');
+  const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
+  const {primary} = COLORS;
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const {loading, fcm, error} = user;
+  const {loading, userData, error} = user;
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setOpponent(e.target.value);
+  const handleChange = (text) => {
+    setOpponent(text);
+  };
+
+  const findFcm = () => {
+    dispatch({type: GET_FCM_REQUEST});
+    axios
+      .get(`${BASE_URL}/${opponent}`)
+      .then((response) => {
+        console.log(response.data.user);
+        dispatch({type: GET_FCM_SUCCESS, payload: response.data.user});
+        sendNotification();
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch({type: GET_FCM_FAILURE, payload: err.message});
+      });
+  };
+
+  const sendNotification = () => {
+    console.log('click...');
+    if (userData !== null) {
+      const token = userData.token;
+      const headers = {
+        Authorization: `key=${FIREBASE_SERVER_KEY}`,
+        'Content-Type': 'application/json',
+      };
+      const body = {
+        to: token,
+        notification: {
+          sound: 'default',
+          body: 'test body',
+          title: 'test title',
+          content_available: true,
+          priority: 'high',
+        },
+        data: {
+          sound: 'default',
+          body: 'test body',
+          title: 'test title',
+          content_available: true,
+          priority: 'high',
+        },
+      };
+      axios
+        .post('https://fcm.googleapis.com/fcm/send', body, {headers})
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -20,10 +80,12 @@ const Dialpad = () => {
       <Input
         placeholder="Mobile Number"
         value={opponent}
-        onChange={handleChange}
+        onChangeText={(text) => handleChange(text)}
         keyboardType="number-pad"
       />
-      <Button title="Find FCM" />
+      <Button title="Find FCM" onPress={sendNotification} />
+      {/* <Text>{user !== null && user.token}</Text> */}
+      {loading && <ActivityIndicator size="large" color={primary} />}
     </View>
   );
 };

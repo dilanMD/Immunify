@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   Button,
+  Alert,
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
@@ -27,7 +28,7 @@ const Register = ({navigation}) => {
   const register = () => {
     dispatch({type: REGISTER_REQUEST});
     axios
-      .post(`${BASE_URL}/register`, {msisdn: '1234567890', token: fcmToken})
+      .post(`${BASE_URL}/register`, {msisdn: '0767795737', token: fcmToken})
       .then((response) => {
         dispatch({type: REGISTER_SUCCESS, payload: response});
         navigation.navigate('Home');
@@ -78,7 +79,7 @@ const Register = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {loading && <ActivityIndicator size="large" color="#00ff00" />}
+      {loading && <ActivityIndicator size="large" color={primary} />}
       <TextInput
         placeholder="Mobile number"
         keyboardType="number-pad"
