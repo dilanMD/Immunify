@@ -1,20 +1,45 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import Dialpad from './Dialpad';
+import CallLog from './CallLog';
+import {COLORS} from '../constants/color';
+
+const Tab = createMaterialBottomTabNavigator();
+const {primary} = COLORS;
 
 const Home = () => {
   return (
-    <View style={styles.container}>
-      <Text>Home.js</Text>
-    </View>
+    <Tab.Navigator
+      initialRouteName="Dialpad"
+      barStyle={{backgroundColor: primary}}>
+      <Tab.Screen
+        name="Dialpad"
+        component={Dialpad}
+        options={{
+          tabBarLabel: 'Dialpad',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="dialpad" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="CallLog"
+        component={CallLog}
+        options={{
+          tabBarLabel: 'CallLog',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons
+              name="format-list-text"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Home;
