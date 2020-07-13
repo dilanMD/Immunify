@@ -20,14 +20,14 @@ const Home = () => {
   // Register background handler
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    navigation.navigate('Register');
+    navigation.navigate('Incoming');
   });
 
   useEffect(() => {
     requestUserPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-      navigation.navigate('Register');
+      navigation.navigate('Incoming');
     });
 
     return unsubscribe;
@@ -61,7 +61,7 @@ const Home = () => {
         'Notification caused app to open from background state:',
         remoteMessage.notification,
       );
-      navigation.navigate('Register');
+      navigation.navigate('Incoming');
     });
 
     messaging()
@@ -73,7 +73,7 @@ const Home = () => {
             remoteMessage.notification,
           );
           setInitialRoute('Home');
-          navigation.navigate('Register');
+          navigation.navigate('Incoming');
         }
         setLoading(false);
       });

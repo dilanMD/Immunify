@@ -13,7 +13,7 @@ const userReducer = (state = INITIAL_STATE, {type, payload}) => {
     case GET_FCM_REQUEST:
       return {...state, loading: true};
     case GET_FCM_SUCCESS:
-      return {...state, loading: false, user: payload};
+      return {...state, loading: false, userData: payload};
     case GET_FCM_FAILURE:
       return {...state, loading: false, error: payload};
     default:

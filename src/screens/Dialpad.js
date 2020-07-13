@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -24,6 +24,8 @@ const Dialpad = (props) => {
   const dispatch = useDispatch();
   const {loading, userData, error} = user;
 
+  useEffect(() => console.log(userData), [userData]);
+
   const handleChange = (text) => {
     setOpponent(text);
   };
@@ -33,8 +35,9 @@ const Dialpad = (props) => {
     axios
       .get(`${BASE_URL}/${opponent}`)
       .then((response) => {
-        console.log(response.data.user);
+        console.log('Response', response.data.user);
         dispatch({type: GET_FCM_SUCCESS, payload: response.data.user});
+        console.log('User Data', userData);
         sendNotification();
       })
       .catch((err) => {
@@ -46,34 +49,34 @@ const Dialpad = (props) => {
   const sendNotification = () => {
     console.log('click...');
     // props.navigation.navigate('VideoCall');
-    if (userData !== null) {
-      const token = userData.token;
-      const headers = {
-        Authorization: `key=${FIREBASE_SERVER_KEY}`,
-        'Content-Type': 'application/json',
-      };
-      const body = {
-        to: token,
-        notification: {
-          sound: 'default',
-          body: 'test body',
-          title: 'test title',
-          content_available: true,
-          priority: 'high',
-        },
-        data: {
-          sound: 'default',
-          body: 'test body',
-          title: 'test title',
-          content_available: true,
-          priority: 'high',
-        },
-      };
-      axios
-        .post('https://fcm.googleapis.com/fcm/send', body, {headers})
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
-    }
+    // if (userData !== null) {
+    const token = userData.token;
+    const headers = {
+      Authorization: `key=${FIREBASE_SERVER_KEY}`,
+      'Content-Type': 'application/json',
+    };
+    const body = {
+      to: token,
+      notification: {
+        sound: 'default',
+        body: 'test body',
+        title: 'test title',
+        content_available: true,
+        priority: 'high',
+      },
+      data: {
+        sound: 'default',
+        body: 'test body',
+        title: 'test title',
+        content_available: true,
+        priority: 'high',
+      },
+    };
+    axios
+      .post('https://fcm.googleapis.com/fcm/send', body, {headers})
+      .then((response) => console.log('FCM Response', response))
+      .catch((error) => console.log(error));
+    // }
   };
 
   return (
