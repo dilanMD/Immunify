@@ -31,10 +31,6 @@ const Dialpad = (props) => {
     setOpponent(opponent + value);
   };
 
-  const handleChange = (text) => {
-    setOpponent(text);
-  };
-
   const findFcm = () => {
     dispatch({type: GET_FCM_REQUEST});
     axios
@@ -53,8 +49,6 @@ const Dialpad = (props) => {
 
   const sendNotification = () => {
     console.log('click...');
-    // props.navigation.navigate('VideoCall');
-    // if (userData !== null) {
     const token = userData.token;
     const headers = {
       Authorization: `key=${FIREBASE_SERVER_KEY}`,
@@ -81,21 +75,9 @@ const Dialpad = (props) => {
       .post('https://fcm.googleapis.com/fcm/send', body, {headers})
       .then((response) => console.log('FCM Response', response))
       .catch((error) => console.log(error));
-    // }
   };
 
   return (
-    // <View style={styles.container}>
-    //   <Input
-    //     placeholder="Mobile Number"
-    //     value={opponent}
-    //     onChangeText={(text) => handleChange(text)}
-    //     keyboardType="number-pad"
-    //   />
-    //   <Button title="Find FCM" onPress={findFcm} />
-    //   {/* <Text>{user !== null && user.token}</Text> */}
-    //   {loading && <ActivityIndicator size="large" color={primary} />}
-    // </View>
     <View style={styles.container}>
       <View style={styles.displayContainer}>
         <Text style={styles.display}>{opponent}</Text>
@@ -169,7 +151,7 @@ const Dialpad = (props) => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        style={[styles.iconContainer, {backgroundColor: success}]}
+        style={[styles.iconContainer, {backgroundColor: primary}]}
         onPress={findFcm}>
         <MaterialIcons name="call" size={36} color={white} />
       </TouchableOpacity>
