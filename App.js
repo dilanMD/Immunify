@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Register from './src/screens/Register';
 import Home from './src/screens/Home';
+import VideoCall from './src/screens/VideoCall';
 import {COLORS} from './src/constants/color';
 
 const App = () => {
@@ -27,6 +28,9 @@ const App = () => {
         </Stack.Screen>
         <Stack.Screen name="Home">
           {(props) => <Home {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="VideoCall">
+          {(props) => <VideoCall {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
