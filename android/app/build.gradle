@@ -183,6 +183,11 @@ android {
 
 dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
+
+    implementation(project(':react-native-jitsi-meet')) {
+      exclude group: 'com.facebook.react',module:'react-native-locale-detector'
+      exclude group: 'com.facebook.react',module:'react-native-vector-icons'
+    }
     
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
@@ -225,3 +230,8 @@ project.ext.vectoricons = [
 ]
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+project.ext.react = [
+    entryFile: "index.js",
+    bundleAssetName: "app.bundle",
+]
