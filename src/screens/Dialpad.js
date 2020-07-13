@@ -15,12 +15,14 @@ import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios';
 
 import {USER} from '../constants/user';
+import {CALL} from '../constants/call';
 import {COLORS} from '../constants/color';
 import {BASE_URL, FIREBASE_SERVER_KEY} from '../constants/credentials';
 
 const Dialpad = (props) => {
   const [opponent, setOpponent] = useState('');
   const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
+  const {OUTGOING_REQUEST, OUTGOING_SUCCESS, OUTGOING_FAILURE} = CALL;
   const {primary, success, danger, white} = COLORS;
 
   const user = useSelector((state) => state.user);
@@ -29,6 +31,17 @@ const Dialpad = (props) => {
 
   const handleNumber = (value) => {
     setOpponent(opponent + value);
+  };
+
+  const saveOutgoing = () => {
+    dispatch({type: OUTGOING_REQUEST});
+    axios
+      .post(`${BASE_URL}/0767795737`)
+      .then((response) => {
+        console.log(response);
+        findFcm();
+      })
+      .catch((err) => console.log(err));
   };
 
   const findFcm = () => {
@@ -152,7 +165,7 @@ const Dialpad = (props) => {
       </View>
       <TouchableOpacity
         style={[styles.iconContainer, {backgroundColor: primary}]}
-        onPress={findFcm}>
+        onPress={saveOutgoing}>
         <MaterialIcons name="call" size={36} color={white} />
       </TouchableOpacity>
       {/* {loading && <ActivityIndicator size="large" color={primary} />} */}
