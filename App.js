@@ -9,6 +9,7 @@ import Register from './src/screens/Register';
 import Home from './src/screens/Home';
 import VideoCall from './src/screens/VideoCall';
 import Incoming from './src/screens/Incoming';
+import Outgoing from './src/screens/Outgoing';
 import {COLORS} from './src/constants/color';
 
 const App = () => {
@@ -34,6 +35,9 @@ const App = () => {
         </Stack.Screen>
         <Stack.Screen name="Incoming">
           {(props) => <Incoming {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Outgoing">
+          {(props) => <Outgoing {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

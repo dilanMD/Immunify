@@ -19,7 +19,7 @@ import {CALL} from '../constants/call';
 import {COLORS} from '../constants/color';
 import {BASE_URL, FIREBASE_SERVER_KEY} from '../constants/credentials';
 
-const Dialpad = (props) => {
+const Dialpad = ({navigation}) => {
   const [opponent, setOpponent] = useState('');
   const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
   const {OUTGOING_REQUEST, OUTGOING_SUCCESS, OUTGOING_FAILURE} = CALL;
@@ -28,6 +28,7 @@ const Dialpad = (props) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const {loading, userData, error} = user;
+  const initiator = user.mobile;
 
   const handleNumber = (value) => {
     setOpponent(opponent + value);
@@ -36,7 +37,7 @@ const Dialpad = (props) => {
   const saveOutgoing = () => {
     dispatch({type: OUTGOING_REQUEST});
     axios
-      .post(`${BASE_URL}/0767795737`)
+      .post(`${BASE_URL}/${initiator}`)
       .then((response) => {
         console.log(response);
         findFcm();
@@ -86,7 +87,10 @@ const Dialpad = (props) => {
     };
     axios
       .post('https://fcm.googleapis.com/fcm/send', body, {headers})
-      .then((response) => console.log('FCM Response', response))
+      .then((response) => {
+        console.log('FCM Response', response);
+        navigation.navigate('Outgoing');
+      })
       .catch((error) => console.log(error));
   };
 

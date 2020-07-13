@@ -18,6 +18,7 @@ import {AUTH} from '../constants/auth';
 import {BASE_URL} from '../constants/credentials';
 
 const Register = ({navigation}) => {
+  const [mobile, setMobile] = useState('');
   const {primary, secondary} = COLORS;
   const {REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE} = AUTH;
   const [fcmToken, setFcmToken] = useState('');
@@ -25,10 +26,14 @@ const Register = ({navigation}) => {
   const dispatch = useDispatch();
   const {msisdn, loading} = auth;
 
+  const handleChange = (text) => {
+    setMobile(text);
+  };
+
   const register = () => {
     dispatch({type: REGISTER_REQUEST});
     axios
-      .post(`${BASE_URL}/register`, {msisdn: '0767795737', token: fcmToken})
+      .post(`${BASE_URL}/register`, {msisdn: mobile, token: fcmToken})
       .then((response) => {
         dispatch({type: REGISTER_SUCCESS, payload: response});
         navigation.navigate('Home');
@@ -80,6 +85,7 @@ const Register = ({navigation}) => {
         keyboardType="number-pad"
         value={msisdn}
         style={styles.input}
+        onChangeText={(text) => handleChange(text)}
       />
       <Button
         title="Register"
@@ -87,7 +93,7 @@ const Register = ({navigation}) => {
         style={styles.button}
         onPress={() => register()}
       />
-      {/* <Text>{fcmToken}</Text> */}
+      {/* <Text>{mobile}</Text> */}
     </View>
   );
 };
