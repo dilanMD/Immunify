@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
-import React, {Fragment, useEffect} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import {StyleSheet, Alert, View, StatusBar} from 'react-native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import messaging from '@react-native-firebase/messaging';
-import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Register from './src/screens/Register';
@@ -12,7 +12,6 @@ import {COLORS} from './src/constants/color';
 
 const App = () => {
   const {primary, secondary} = COLORS;
-
   const Stack = createStackNavigator();
 
   return (

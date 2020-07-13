@@ -40,11 +40,6 @@ const Register = ({navigation}) => {
       });
   };
 
-  // Register background handler
-  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-  });
-
   useEffect(() => {
     requestUserPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {

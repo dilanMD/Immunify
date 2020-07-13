@@ -15,7 +15,7 @@ import {USER} from '../constants/user';
 import {COLORS} from '../constants/color';
 import {BASE_URL, FIREBASE_SERVER_KEY} from '../constants/credentials';
 
-const Dialpad = () => {
+const Dialpad = (props) => {
   const [opponent, setOpponent] = useState('0767795737');
   const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
   const {primary} = COLORS;
@@ -45,6 +45,7 @@ const Dialpad = () => {
 
   const sendNotification = () => {
     console.log('click...');
+    // props.navigation.navigate('VideoCall');
     if (userData !== null) {
       const token = userData.token;
       const headers = {
@@ -83,7 +84,7 @@ const Dialpad = () => {
         onChangeText={(text) => handleChange(text)}
         keyboardType="number-pad"
       />
-      <Button title="Find FCM" onPress={sendNotification} />
+      <Button title="Find FCM" onPress={findFcm} />
       {/* <Text>{user !== null && user.token}</Text> */}
       {loading && <ActivityIndicator size="large" color={primary} />}
     </View>
