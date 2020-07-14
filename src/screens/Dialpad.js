@@ -20,7 +20,7 @@ import {COLORS} from '../constants/color';
 import {BASE_URL, FIREBASE_SERVER_KEY} from '../constants/credentials';
 
 const Dialpad = ({navigation}) => {
-  const [opponent, setOpponent] = useState('');
+  const [opponent, setOpponent] = useState('0767795733');
   const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
   const {OUTGOING_REQUEST, OUTGOING_SUCCESS, OUTGOING_FAILURE} = CALL;
   const {primary, success, danger, white} = COLORS;

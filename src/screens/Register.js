@@ -36,7 +36,7 @@ const Register = ({navigation}) => {
       .post(`${BASE_URL}/register`, {msisdn: mobile, token: fcmToken})
       .then((response) => {
         dispatch({type: REGISTER_SUCCESS, payload: response});
-        navigation.navigate('Home');
+        navigation.navigate('VideoCall');
       })
       .catch((err) => {
         dispatch({type: REGISTER_FAILURE, payload: err});

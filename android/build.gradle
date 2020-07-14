@@ -3,7 +3,7 @@
 buildscript {
     ext {
         buildToolsVersion = "29.0.2"
-        minSdkVersion = 21
+        minSdkVersion = 24
         compileSdkVersion = 29
         targetSdkVersion = 29
     }
@@ -37,6 +37,9 @@ allprojects {
             url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
         }
 
+        maven { 
+            url "https://github.com/jean-ben-guigui/jitsi-maven-repository/raw/release/v0.60.6/releases"
+        }
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
