@@ -34,14 +34,15 @@ const Dialpad = ({navigation}) => {
     setOpponent(opponent + value);
   };
 
+  const handleDelete = () => {
+    setOpponent(opponent.slice(0, -1));
+  };
+
   const saveOutgoing = () => {
     dispatch({type: OUTGOING_REQUEST});
     axios
       .post(`${BASE_URL}/${initiator}`)
-      .then((response) => {
-        console.log(response);
-        findFcm();
-      })
+      .then((response) => findFcm())
       .catch((err) => console.log(err));
   };
 
@@ -50,9 +51,7 @@ const Dialpad = ({navigation}) => {
     axios
       .get(`${BASE_URL}/${opponent}`)
       .then((response) => {
-        console.log('Response', response.data.user);
         dispatch({type: GET_FCM_SUCCESS, payload: response.data.user});
-        console.log('User Data', userData);
         sendNotification();
       })
       .catch((err) => {
@@ -87,10 +86,7 @@ const Dialpad = ({navigation}) => {
     };
     axios
       .post('https://fcm.googleapis.com/fcm/send', body, {headers})
-      .then((response) => {
-        console.log('FCM Response', response);
-        navigation.navigate('Outgoing');
-      })
+      .then((response) => navigation.navigate('VideoCall'))
       .catch((error) => console.log(error));
   };
 
@@ -98,6 +94,13 @@ const Dialpad = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.displayContainer}>
         <Text style={styles.display}>{opponent}</Text>
+        <MaterialIcons
+          name="backspace"
+          size={20}
+          color="#CCCCCC"
+          style={styles.delete}
+          onPress={handleDelete}
+        />
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity
@@ -183,9 +186,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  display: {
-    fontSize: 30,
+  displayContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 30,
+  },
+  display: {
+    flex: 8,
+    marginLeft: 20,
+    fontSize: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  delete: {
+    flex: 2,
   },
   buttons: {
     width: '100%',

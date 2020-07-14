@@ -37,7 +37,6 @@ const Register = ({navigation}) => {
       .then((response) => {
         dispatch({type: REGISTER_SUCCESS, payload: response});
         navigation.navigate('Home');
-        console.log(response);
       })
       .catch((err) => {
         dispatch({type: REGISTER_FAILURE, payload: err});
@@ -62,7 +61,6 @@ const Register = ({navigation}) => {
 
     if (enabled) {
       getFcmToken();
-      console.log('Authorization status:', authStatus);
     }
   };
 
@@ -70,8 +68,6 @@ const Register = ({navigation}) => {
     const token = await messaging().getToken();
     if (token) {
       setFcmToken(token);
-      console.log(token);
-      console.log('Your Firebase Token is:', token);
     } else {
       console.log('Failed', 'No token received');
     }

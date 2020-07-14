@@ -11,7 +11,7 @@ const VideoCall = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      const url = `${JITSI_SERVER}/deluxan02`;
+      const url = `${JITSI_SERVER}/deluxan03`;
       const userInfo = {
         displayName: 'Deluxan',
         email: 'deluxan_m@outlook.com',

@@ -49,7 +49,6 @@ const Home = () => {
 
     if (enabled) {
       getFcmToken();
-      console.log('Authorization status:', authStatus);
     }
   };
 
@@ -61,12 +60,10 @@ const Home = () => {
         .then((res) => {
           // setMobile(res.data.user.msisdn);
           dispatch({type: SET_MOBILE, payload: res.data.user.msisdn});
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);
         });
-      console.log('Your Firebase Token is:', token);
     } else {
       console.log('Failed', 'No token received');
     }
@@ -74,10 +71,6 @@ const Home = () => {
 
   useEffect(() => {
     messaging().onNotificationOpenedApp((remoteMessage) => {
-      console.log(
-        'Notification caused app to open from background state:',
-        remoteMessage.notification,
-      );
       navigation.navigate('Incoming');
     });
 
@@ -85,10 +78,6 @@ const Home = () => {
       .getInitialNotification()
       .then((remoteMessage) => {
         if (remoteMessage) {
-          console.log(
-            'Notification caused app to open from quit state:',
-            remoteMessage.notification,
-          );
           setInitialRoute('Home');
           navigation.navigate('Incoming');
         }
