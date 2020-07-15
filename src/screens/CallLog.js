@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 const CallLog = () => {
   return (
     <View style={styles.container}>
-      <Text>CallLog.js</Text>
+      <Text>Under construction</Text>
     </View>
   );
 };

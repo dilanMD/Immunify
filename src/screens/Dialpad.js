@@ -84,15 +84,15 @@ const Dialpad = ({navigation}) => {
       to: token,
       notification: {
         sound: 'default',
-        body: 'test body',
-        title: 'test title',
+        // body: 'Click to see the incoming screen',
+        title: 'Incoming call received',
         content_available: true,
         priority: 'high',
       },
       data: {
         sound: 'default',
-        body: 'test body',
-        title: 'test title',
+        // body: 'test body',
+        title: 'Incoming call received',
         content_available: true,
         priority: 'high',
       },
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   },
   display: {
     flex: 8,
-    marginLeft: 20,
+    marginLeft: 100,
     fontSize: 30,
     alignItems: 'center',
     justifyContent: 'center',

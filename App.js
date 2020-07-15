@@ -20,7 +20,7 @@ const App = () => {
     <NavigationContainer>
       <StatusBar backgroundColor={secondary} />
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Register"
         screenOptions={{
           headerShown: false,
         }}>
