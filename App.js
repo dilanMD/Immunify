@@ -17,31 +17,30 @@ const App = () => {
   const Stack = createStackNavigator();
 
   return (
-    // <NavigationContainer>
-    //   <StatusBar backgroundColor={secondary} />
-    //   <Stack.Navigator
-    //     initialRouteName="Register"
-    //     screenOptions={{
-    //       headerShown: false,
-    //     }}>
-    //     <Stack.Screen name="Register">
-    //       {(props) => <Register {...props} />}
-    //     </Stack.Screen>
-    //     <Stack.Screen name="Home">
-    //       {(props) => <Home {...props} />}
-    //     </Stack.Screen>
-    //     {/* <Stack.Screen name="VideoCall">
-    //       {(props) => <VideoCall {...props} />}
-    //     </Stack.Screen> */}
-    //     <Stack.Screen name="Incoming">
-    //       {(props) => <Incoming {...props} />}
-    //     </Stack.Screen>
-    //     <Stack.Screen name="Outgoing">
-    //       {(props) => <Outgoing {...props} />}
-    //     </Stack.Screen>
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    <VideoCall />
+    <NavigationContainer>
+      <StatusBar backgroundColor={secondary} />
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Register">
+          {(props) => <Register {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Home">
+          {(props) => <Home {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="VideoCall">
+          {(props) => <VideoCall {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Incoming">
+          {(props) => <Incoming {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Outgoing">
+          {(props) => <Outgoing {...props} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

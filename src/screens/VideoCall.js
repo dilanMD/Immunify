@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import JitsiMeet, {JitsiMeetView} from 'react-native-jitsi-meet';
 
-import {JITSI_SERVER} from '../constants/credentials';
+import {JITSI_SERVER, JITSI_ROOM} from '../constants/credentials';
 
 const VideoCall = () => {
   // const onConferenceTerminated = (nativeEvent) => {
@@ -47,7 +47,7 @@ const VideoCall = () => {
     <View style={{flex: 1}}>
       <WebView
         userAgent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0"
-        source={{uri: `${JITSI_SERVER}/deluxan03`}}
+        source={{uri: `${JITSI_SERVER}/${JITSI_ROOM}`}}
         style={{flex: 1}}></WebView>
     </View>
   );

@@ -6,7 +6,15 @@ import {COLORS} from '../constants/color';
 
 const {success, danger, white} = COLORS;
 
-const Incoming = () => {
+const Incoming = ({navigation}) => {
+  const accept = () => {
+    navigation.navigate('VideoCall');
+  };
+
+  const decline = () => {
+    navigation.navigate('Home');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.userInfo}>
@@ -16,11 +24,13 @@ const Incoming = () => {
       <View style={styles.userDetails}></View>
       <View style={styles.buttons}>
         <TouchableOpacity
-          style={[styles.iconContainer, {backgroundColor: success}]}>
+          style={[styles.iconContainer, {backgroundColor: success}]}
+          onPress={accept}>
           <MaterialIcons name="call" size={36} color={white} />
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.iconContainer, {backgroundColor: danger}]}>
+          style={[styles.iconContainer, {backgroundColor: danger}]}
+          onPress={decline}>
           <MaterialIcons name="call-end" size={36} color={white} />
         </TouchableOpacity>
       </View>

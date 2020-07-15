@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Alert} from 'react-native';
 import axios from 'axios';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import messaging from '@react-native-firebase/messaging';
@@ -24,6 +24,11 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [initialRoute, setInitialRoute] = useState('Home');
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+  const {userData} = user;
+
+  // useEffect(()=>{},[userData]);
 
   // Register background handler
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {

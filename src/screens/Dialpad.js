@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {AsyncStorage} from '@react-native-community/async-storage';
 import {Input} from 'react-native-elements';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -20,15 +21,25 @@ import {COLORS} from '../constants/color';
 import {BASE_URL, FIREBASE_SERVER_KEY} from '../constants/credentials';
 
 const Dialpad = ({navigation}) => {
-  const [opponent, setOpponent] = useState('0767795733');
+  const [opponent, setOpponent] = useState('');
+  const [token, setToken] = useState('');
   const {GET_FCM_REQUEST, GET_FCM_SUCCESS, GET_FCM_FAILURE} = USER;
   const {OUTGOING_REQUEST, OUTGOING_SUCCESS, OUTGOING_FAILURE} = CALL;
   const {primary, success, danger, white} = COLORS;
 
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const {loading, userData, error} = user;
+
+  const dispatch = useDispatch();
+
+  const call = useSelector((state) => state.call);
+  const {data} = call;
+
   const initiator = user.mobile;
+
+  useEffect(() => {
+    userData !== null && setToken(userData.token);
+  }, [userData]);
 
   const handleNumber = (value) => {
     setOpponent(opponent + value);
@@ -38,17 +49,20 @@ const Dialpad = ({navigation}) => {
     setOpponent(opponent.slice(0, -1));
   };
 
-  const saveOutgoing = () => {
+  const saveOutgoing = async () => {
     dispatch({type: OUTGOING_REQUEST});
-    axios
+    await axios
       .post(`${BASE_URL}/${initiator}`)
-      .then((response) => findFcm())
-      .catch((err) => console.log(err));
+      .then((response) => {
+        dispatch({type: OUTGOING_SUCCESS, payload: response.data});
+        console.log('Data', data);
+      })
+      .catch((err) => dispatch({type: OUTGOING_FAILURE, payload: err}));
   };
 
-  const findFcm = () => {
+  const findFcm = async () => {
     dispatch({type: GET_FCM_REQUEST});
-    axios
+    await axios
       .get(`${BASE_URL}/${opponent}`)
       .then((response) => {
         dispatch({type: GET_FCM_SUCCESS, payload: response.data.user});
@@ -60,9 +74,8 @@ const Dialpad = ({navigation}) => {
       });
   };
 
-  const sendNotification = () => {
+  const sendNotification = async () => {
     console.log('click...');
-    const token = userData.token;
     const headers = {
       Authorization: `key=${FIREBASE_SERVER_KEY}`,
       'Content-Type': 'application/json',
@@ -84,9 +97,12 @@ const Dialpad = ({navigation}) => {
         priority: 'high',
       },
     };
-    axios
+    await axios
       .post('https://fcm.googleapis.com/fcm/send', body, {headers})
-      .then((response) => navigation.navigate('VideoCall'))
+      .then((response) => {
+        saveOutgoing();
+        navigation.navigate('VideoCall');
+      })
       .catch((error) => console.log(error));
   };
 
@@ -172,7 +188,7 @@ const Dialpad = ({navigation}) => {
       </View>
       <TouchableOpacity
         style={[styles.iconContainer, {backgroundColor: primary}]}
-        onPress={saveOutgoing}>
+        onPress={findFcm}>
         <MaterialIcons name="call" size={36} color={white} />
       </TouchableOpacity>
       {/* {loading && <ActivityIndicator size="large" color={primary} />} */}
