@@ -8,8 +8,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import {AsyncStorage} from '@react-native-community/async-storage';
-import {Input} from 'react-native-elements';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -55,6 +53,7 @@ const Dialpad = ({navigation}) => {
       .post(`${BASE_URL}/${initiator}`)
       .then((response) => {
         dispatch({type: OUTGOING_SUCCESS, payload: response.data});
+        response.data !== null && findFcm();
         console.log('Data', data);
       })
       .catch((err) => dispatch({type: OUTGOING_FAILURE, payload: err}));
@@ -100,7 +99,6 @@ const Dialpad = ({navigation}) => {
     await axios
       .post('https://fcm.googleapis.com/fcm/send', body, {headers})
       .then((response) => {
-        saveOutgoing();
         navigation.navigate('VideoCall');
       })
       .catch((error) => console.log(error));
@@ -188,7 +186,7 @@ const Dialpad = ({navigation}) => {
       </View>
       <TouchableOpacity
         style={[styles.iconContainer, {backgroundColor: primary}]}
-        onPress={findFcm}>
+        onPress={saveOutgoing}>
         <MaterialIcons name="call" size={36} color={white} />
       </TouchableOpacity>
       {/* {loading && <ActivityIndicator size="large" color={primary} />} */}

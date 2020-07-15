@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import {AsyncStorage} from '@react-native-community/async-storage';
 import axios from 'axios';
 import messaging from '@react-native-firebase/messaging';
 import {useSelector, useDispatch} from 'react-redux';
@@ -69,18 +68,8 @@ const Register = ({navigation}) => {
     const token = await messaging().getToken();
     if (token) {
       setFcmToken(token);
-      __storeData();
     } else {
       console.log('Failed', 'No token received');
-    }
-  };
-
-  const __storeData = async () => {
-    try {
-      await AsyncStorage.setItem('Mobile', mobile);
-      await AsyncStorage.setItem('Fcm', token);
-    } catch (error) {
-      console.log(error);
     }
   };
 
